@@ -5,15 +5,15 @@ type Note = Database['public']['Tables']['notes']['Row']
 
 async function fetchNotes() {
   // 非同期をわかりやすくするために意図的に遅らせている
-  // await new Promise((resolve) => setTimeout(resolve, 2000))
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   const res = await fetch(`${process.env.url}/rest/v1/notes?select=*`, {
     headers: new Headers({
       apikey: process.env.apikey as string,
     }),
     // ↓cacheオプション: defaultはforce-cacheでgetStaticPropsと同じ挙動
-    // cache: 'no-store', getServerSidePropsと同じ
+    cache: 'no-store', // getServerSidePropsと同じ
     // ↓ISRの場合
-    next: { revalidate: 10 },
+    // next: { revalidate: 10 },
   })
   if (!res.ok) {
     throw new Error('Failed to fetch data in server')
