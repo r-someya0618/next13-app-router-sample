@@ -2,7 +2,7 @@
 import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'
-import supabase from '../../utils/spabase'
+import supabase from '../../utils/supabase'
 import useStore from '@/store'
 
 export default function Auth() {
@@ -23,7 +23,7 @@ export default function Auth() {
       if (error) {
         alert(error.message)
       } else {
-        router.push('/')
+        router.push('/auth/todo-crud')
       }
     } else {
       const { error } = await supabase.auth.signUp({
